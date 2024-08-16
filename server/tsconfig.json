@@ -7,7 +7,7 @@
         ],
         "allowJs": true,
         "outDir": "./dist",
-        "rootDir": "./", // Adjusted to point to the correct directory
+        "rootDir": "./",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "strict": true,
@@ -17,7 +17,8 @@
         ]
     },
     "include": [
-        "./**/*.ts"
+        "./**/*.ts",
+        "types/types.d.ts" // Adjust this path based on the actual location of types.d.ts
     ],
     "exclude": [
         "node_modules"
