@@ -34,7 +34,7 @@ body {
 }
 
 .hero img {
-  width: 120px;
+  width: 150px;
   margin-bottom: 20px;
 }
 
@@ -101,18 +101,39 @@ h2 {
   background-color: #d63050;
 }
 
-input[type="email"] {
-  padding: 15px; /* Make padding consistent with the button */
-  font-size: 1rem;
-  border: 2px solid #ccc;
-  border-radius: 10px; /* Match the button's border-radius */
-  box-sizing: border-box; /* Ensure consistent sizing */
-  width: 60%; /* Adjust width */
-  margin-right: 10px;
+/* Auth Forms */
+.auth-container {
+  text-align: center;
+  margin-top: 40px;
 }
 
-button {
-  padding: 15px 30px;
+.auth-logo {
+  width: 360px; /* Adjusted for a larger size */
+  margin-bottom: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.auth-form {
+  display: inline-block;
+  max-width: 300px;
+  text-align: left;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 15px;
+  font-size: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+  margin-bottom: 10px; /* Add space between the input fields */
+}
+
+.auth-form button {
+  width: 100%;
+  padding: 15px;
   font-size: 1rem;
   color: #ffffff;
   background-color: #e94560;
@@ -120,12 +141,60 @@ button {
   border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  height: 52px; /* Explicitly set the height to match the input */
-  display: inline-block;
-  vertical-align: middle;
-  box-sizing: border-box;
 }
 
-button:hover {
+.auth-form button:hover {
   background-color: #d63050;
+}
+
+/* Main Container */
+.main-container {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.main-container img {
+  width: 360px; /* Ensure consistency across pages */
+  margin-bottom: 20px;
+}
+
+.main-container button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #ffffff;
+  background-color: #e94560;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.main-container button:hover {
+  background-color: #d63050;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero img {
+    width: 120px;
+  }
+
+  .auth-logo,
+  .main-container img {
+    width: 150px;
+  }
+
+  .auth-form {
+    width: 100%;
+    padding: 0 20px;
+  }
+
+  .join-waitlist-button,
+  .auth-form button,
+  .main-container button {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
 }
