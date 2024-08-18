@@ -6,6 +6,8 @@ export interface IUser extends Document {
   password: string;
   position: number | null; // Allow null for the position
   isApproved: boolean; // Add this field to track approval status
+  resetPasswordToken?: string; // Optional string type
+  resetPasswordExpires?: Date; // Optional Date type
   _id: mongoose.Types.ObjectId;
 }
 
@@ -15,6 +17,8 @@ const userSchema: Schema<IUser> = new Schema({
   password: { type: String, required: true },
   position: { type: Number, default: null }, // Allow null for the position
   isApproved: { type: Boolean, default: false },
+  resetPasswordToken: { type: String, default: undefined }, // Optional string type
+  resetPasswordExpires: { type: Date, default: undefined }, // Optional Date type
 });
 
 const User = mongoose.model<IUser>('User', userSchema, 'users');

@@ -147,6 +147,49 @@ h2 {
   background-color: #d63050;
 }
 
+/* Forgot Password Page */
+.forgot-password-container {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.forgot-password-container h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.forgot-password-form {
+  display: inline-block;
+  max-width: 300px;
+  text-align: left;
+}
+
+.forgot-password-form input {
+  width: 100%;
+  padding: 15px;
+  font-size: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+.forgot-password-form button {
+  width: 100%;
+  padding: 15px;
+  font-size: 1rem;
+  color: #ffffff;
+  background-color: #e94560;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.forgot-password-form button:hover {
+  background-color: #d63050;
+}
+
 /* Main Container */
 .main-container {
   text-align: center;
@@ -185,13 +228,15 @@ h2 {
     width: 150px;
   }
 
-  .auth-form {
+  .auth-form,
+  .forgot-password-form {
     width: 100%;
     padding: 0 20px;
   }
 
   .join-waitlist-button,
   .auth-form button,
+  .forgot-password-form button,
   .main-container button {
     width: 100%;
     margin-right: 0;

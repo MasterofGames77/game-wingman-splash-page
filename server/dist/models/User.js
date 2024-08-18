@@ -30,6 +30,8 @@ const userSchema = new mongoose_1.Schema({
     password: { type: String, required: true },
     position: { type: Number, default: null }, // Allow null for the position
     isApproved: { type: Boolean, default: false },
+    resetPasswordToken: { type: String, default: undefined }, // Optional string type
+    resetPasswordExpires: { type: Date, default: undefined }, // Optional Date type
 });
 const User = mongoose_1.default.model('User', userSchema, 'users');
 exports.default = User;

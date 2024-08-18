@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import logo from "./assets/video-game-wingman-logo.png"; // Adjust the path as necessary
-import "./index.css"; // Ensure your CSS includes the styles below
+import logo from "./assets/video-game-wingman-logo.png";
+import "./index.css";
 
 const SignInPage: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -55,6 +55,9 @@ const SignInPage: React.FC = () => {
         />
         <button type="submit">Sign In</button>
       </form>
+      <Link to="/forgot-password" className="forgot-password-link">
+        Forgot Password?
+      </Link>
       {message && <p>{message}</p>}
     </div>
   );
