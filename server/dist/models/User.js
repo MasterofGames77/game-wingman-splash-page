@@ -28,7 +28,8 @@ const mongoose_1 = __importStar(require("mongoose"));
 const userSchema = new mongoose_1.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    position: { type: Number, required: true },
+    position: { type: Number, default: null }, // Allow null for the position
+    isApproved: { type: Boolean, default: false },
 });
 const User = mongoose_1.default.model('User', userSchema, 'users');
 exports.default = User;

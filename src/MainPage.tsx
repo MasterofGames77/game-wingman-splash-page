@@ -8,6 +8,7 @@ const MainPage: React.FC = () => {
   const [position, setPosition] = useState<number | null>(null);
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+  const [isApproved, setIsApproved] = useState(false);
 
   useEffect(() => {
     const fetchPosition = async () => {
@@ -19,6 +20,7 @@ const MainPage: React.FC = () => {
           }
         );
         setPosition(response.data.position);
+        setIsApproved(response.data.isApproved);
       } catch (error) {
         console.error("Error fetching waitlist position:", error);
         setMessage(
@@ -51,7 +53,16 @@ const MainPage: React.FC = () => {
       <img src={logo} alt="Video Game Wingman Logo" className="auth-logo" />
       <h1>Welcome to Video Game Wingman</h1>
       {position !== null ? (
-        <p>Your waitlist position is: {position}</p>
+        <>
+          <p>Your waitlist position is: {position}</p>
+          {isApproved && (
+            <p>
+              You have been approved! Click{" "}
+              <a href="https://game-ai-assistant.vercel.app/">here</a> to access
+              the application.
+            </p>
+          )}
+        </>
       ) : (
         <p>{message}</p>
       )}

@@ -7,6 +7,7 @@ import authRoutes from './routes/auth';
 import waitlistRoutes from './routes/waitlist';
 import getWaitlistPositionRoute from './routes/getWaitlistPosition';
 import { authMiddleware } from './middleware/authMiddleware';
+import approveUserRoute from './routes/approveUser';
 
 dotenv.config();
 
@@ -33,6 +34,7 @@ mongoose.connect(process.env.MONGO_URI!)
 app.use('/api/auth', authRoutes);
 app.use('/api', authMiddleware, waitlistRoutes);
 app.use('/api', authMiddleware, getWaitlistPositionRoute);
+app.use('/api', authMiddleware, approveUserRoute);
 
 // Global error-handling middleware
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {

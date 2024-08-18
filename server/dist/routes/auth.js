@@ -13,16 +13,21 @@ router.post('/signup', async (req, res) => {
     const { email, password } = req.body;
     try {
         const hashedPassword = await bcryptjs_1.default.hash(password, 10);
-        const newUser = new User_1.default({
-            email,
-            password: hashedPassword,
-            position: await User_1.default.countDocuments() + 1,
-        });
+        const newUser = new User_1.default({ email, password: hashedPassword, position: await User_1.default.countDocuments() + 1 });
         await newUser.save();
         const accessToken = (0, jwt_1.generateAccessToken)(newUser._id.toString());
         const refreshToken = (0, jwt_1.generateRefreshToken)(newUser._id.toString());
-        res.cookie('token', accessToken, { httpOnly: true, secure: isProduction });
-        res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: isProduction });
+        // Set the token in a cookie
+        res.cookie('token', accessToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production', // only set secure flag in production
+            sameSite: 'strict', // Use lowercase 'strict'
+        });
+        res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict', // Use lowercase 'strict'
+        });
         res.status(201).json({ message: 'User created', accessToken, refreshToken });
     }
     catch (err) {
@@ -33,13 +38,22 @@ router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await User_1.default.findOne({ email });
-        if (!user || !(await bcryptjs_1.default.compare(password, user.password))) {
+        if (!user || !await bcryptjs_1.default.compare(password, user.password)) {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
         const accessToken = (0, jwt_1.generateAccessToken)(user._id.toString());
         const refreshToken = (0, jwt_1.generateRefreshToken)(user._id.toString());
-        res.cookie('token', accessToken, { httpOnly: true, secure: isProduction });
-        res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: isProduction });
+        // Set the token in a cookie
+        res.cookie('token', accessToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production', // only set secure flag in production
+            sameSite: 'strict', // Use lowercase 'strict'
+        });
+        res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict', // Use lowercase 'strict'
+        });
         res.json({ message: 'Login successful', accessToken, refreshToken });
     }
     catch (err) {

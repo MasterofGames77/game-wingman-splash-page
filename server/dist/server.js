@@ -12,6 +12,7 @@ const auth_1 = __importDefault(require("./routes/auth"));
 const waitlist_1 = __importDefault(require("./routes/waitlist"));
 const getWaitlistPosition_1 = __importDefault(require("./routes/getWaitlistPosition"));
 const authMiddleware_1 = require("./middleware/authMiddleware");
+const approveUser_1 = __importDefault(require("./routes/approveUser"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT || 5000;
@@ -32,6 +33,7 @@ mongoose_1.default.connect(process.env.MONGO_URI)
 app.use('/api/auth', auth_1.default);
 app.use('/api', authMiddleware_1.authMiddleware, waitlist_1.default);
 app.use('/api', authMiddleware_1.authMiddleware, getWaitlistPosition_1.default);
+app.use('/api', authMiddleware_1.authMiddleware, approveUser_1.default);
 // Global error-handling middleware
 app.use((err, req, res, next) => {
     console.error('Global error handler:', err.stack);
