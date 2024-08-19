@@ -7,11 +7,13 @@ import { useNavigate } from "react-router-dom";
 const MainPage: React.FC = () => {
   const [position, setPosition] = useState<number | null>(null);
   const [message, setMessage] = useState("");
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
   const [isApproved, setIsApproved] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPosition = async () => {
+      setLoading(true);
       try {
         const response = await axios.get(
           "http://localhost:5000/api/waitlist-position",
@@ -26,6 +28,8 @@ const MainPage: React.FC = () => {
         setMessage(
           "Error fetching your waitlist position. Please try again later."
         );
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -33,6 +37,7 @@ const MainPage: React.FC = () => {
   }, []);
 
   const handleLogout = async () => {
+    setLoading(true);
     try {
       await axios.post(
         "http://localhost:5000/api/auth/logout",
@@ -45,6 +50,8 @@ const MainPage: React.FC = () => {
     } catch (error) {
       console.error("Error logging out:", error);
       setMessage("An error occurred during logout. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -59,7 +66,7 @@ const MainPage: React.FC = () => {
             <p>
               You have been approved! Click{" "}
               <a href="https://game-ai-assistant.vercel.app/">here</a> to access
-              the application.
+              Video Game Wingman.
             </p>
           )}
         </>
@@ -67,6 +74,11 @@ const MainPage: React.FC = () => {
         <p>{message}</p>
       )}
       <button onClick={handleLogout}>Log Out</button>
+      {loading && (
+        <div className="spinner-wrapper">
+          <div className="loading-spinner"></div>
+        </div>
+      )}
     </div>
   );
 };

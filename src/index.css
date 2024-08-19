@@ -12,6 +12,35 @@ body {
   overflow-y: auto;
 }
 
+/* Loading Spinner */
+.loading-spinner {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #e94560;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 2s linear infinite;
+  margin: 20px auto; /* Center the spinner and add margin */
+  display: block; /* Ensure it takes up space as a block element */
+}
+
+/* Spinner Wrapper to ensure proper spacing */
+.spinner-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px; /* Space above the spinner */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 /* Container */
 .container {
   text-align: center;
@@ -215,6 +244,21 @@ h2 {
 
 .main-container button:hover {
   background-color: #d63050;
+}
+
+/* Forgot Password Link */
+.forgot-password-link {
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+  color: #ffffff;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.forgot-password-link:hover {
+  color: #e94560;
 }
 
 /* Responsive Design */

@@ -7,10 +7,12 @@ import "./index.css";
 const ForgotPasswordPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false); // State for loading spinner
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true); // Show loading spinner
 
     try {
       const response = await axios.post(
@@ -27,6 +29,8 @@ const ForgotPasswordPage: React.FC = () => {
     } catch (error) {
       console.error("Error sending password reset email:", error);
       setMessage("An error occurred. Please try again.");
+    } finally {
+      setLoading(false); // Hide loading spinner
     }
   };
 
@@ -45,6 +49,11 @@ const ForgotPasswordPage: React.FC = () => {
         <button type="submit">Submit</button>
       </form>
       {message && <p>{message}</p>}
+      {loading && (
+        <div className="spinner-wrapper">
+          <div className="loading-spinner"></div>
+        </div>
+      )}
     </div>
   );
 };
