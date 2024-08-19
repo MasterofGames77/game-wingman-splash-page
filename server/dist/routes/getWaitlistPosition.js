@@ -15,7 +15,7 @@ router.get('/getWaitlistPosition', async (req, res) => {
     try {
         const user = await User_1.default.findById(userId);
         if (user) {
-            res.json({ position: user.position });
+            res.json({ position: user.position, isApproved: user.isApproved });
         }
         else {
             res.status(404).json({ error: 'User not found' });

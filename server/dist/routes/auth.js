@@ -21,13 +21,13 @@ router.post('/signup', async (req, res) => {
         const refreshToken = (0, jwt_1.generateRefreshToken)(newUser._id.toString());
         res.cookie('token', accessToken, {
             httpOnly: true,
-            secure: isProduction,
-            sameSite: 'strict',
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: isProduction ? 'strict' : 'lax', // Use 'lax' for development
         });
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
             secure: isProduction,
-            sameSite: 'strict',
+            sameSite: isProduction ? 'strict' : 'lax', // Use 'lax' for development
         });
         res.status(201).json({ message: 'User created', accessToken, refreshToken });
     }
@@ -47,12 +47,12 @@ router.post('/login', async (req, res) => {
         res.cookie('token', accessToken, {
             httpOnly: true,
             secure: isProduction,
-            sameSite: 'strict',
+            sameSite: isProduction ? 'strict' : 'lax', // Use 'lax' for development
         });
         res.cookie('refreshToken', refreshToken, {
             httpOnly: true,
             secure: isProduction,
-            sameSite: 'strict',
+            sameSite: isProduction ? 'strict' : 'lax', // Use 'lax' for development
         });
         res.json({ message: 'Login successful', accessToken, refreshToken });
     }
@@ -64,12 +64,12 @@ router.post('/logout', (req, res) => {
     res.clearCookie('token', {
         httpOnly: true,
         secure: isProduction,
-        sameSite: 'strict',
+        sameSite: isProduction ? 'strict' : 'lax', // Use 'lax' for development
     });
     res.clearCookie('refreshToken', {
         httpOnly: true,
         secure: isProduction,
-        sameSite: 'strict',
+        sameSite: isProduction ? 'strict' : 'lax', // Use 'lax' for development
     });
     res.status(200).json({ message: 'Logout successful' });
 });

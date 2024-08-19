@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser';
 import authRoutes from './routes/auth';
 import waitlistRoutes from './routes/waitlist';
 import getWaitlistPositionRoute from './routes/getWaitlistPosition';
-import { authMiddleware } from './middleware/authMiddleware';
+import authMiddleware  from './middleware/authMiddleware';
 import approveUserRoute from './routes/approveUser';
 
 dotenv.config();

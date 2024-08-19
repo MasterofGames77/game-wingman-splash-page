@@ -16,7 +16,7 @@ const MainPage: React.FC = () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/waitlist-position",
+          "http://localhost:5000/api/getWaitlistPosition",
           {
             withCredentials: true, // Ensure cookies are sent
           }

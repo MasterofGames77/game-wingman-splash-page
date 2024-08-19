@@ -18,7 +18,13 @@ router.post('/waitlist', async (req, res) => {
             return res.status(400).json({ message: 'Email is already on the waitlist' });
         }
         const position = await User_1.default.countDocuments() + 1;
-        const newUser = new User_1.default({ email: user.email, position });
+        // Create a new user with the correct schema properties
+        const newUser = new User_1.default({
+            email: user.email,
+            password: user.password, // Assuming the password is hashed at this point
+            position,
+            isApproved: false,
+        });
         await newUser.save();
         res.status(200).json({ message: 'Email added to the waitlist', position });
     }

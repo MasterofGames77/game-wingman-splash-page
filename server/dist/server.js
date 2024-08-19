@@ -11,7 +11,7 @@ const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const auth_1 = __importDefault(require("./routes/auth"));
 const waitlist_1 = __importDefault(require("./routes/waitlist"));
 const getWaitlistPosition_1 = __importDefault(require("./routes/getWaitlistPosition"));
-const authMiddleware_1 = require("./middleware/authMiddleware");
+const authMiddleware_1 = __importDefault(require("./middleware/authMiddleware"));
 const approveUser_1 = __importDefault(require("./routes/approveUser"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
@@ -31,9 +31,9 @@ mongoose_1.default.connect(process.env.MONGO_URI)
     .catch((err) => console.log('MongoDB connection error:', err));
 // Routes
 app.use('/api/auth', auth_1.default);
-app.use('/api', authMiddleware_1.authMiddleware, waitlist_1.default);
-app.use('/api', authMiddleware_1.authMiddleware, getWaitlistPosition_1.default);
-app.use('/api', authMiddleware_1.authMiddleware, approveUser_1.default);
+app.use('/api', authMiddleware_1.default, waitlist_1.default);
+app.use('/api', authMiddleware_1.default, getWaitlistPosition_1.default);
+app.use('/api', authMiddleware_1.default, approveUser_1.default);
 // Global error-handling middleware
 app.use((err, req, res, next) => {
     console.error('Global error handler:', err.stack);
