@@ -11,7 +11,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 // Base URL for password reset emails
 const BASE_URL = isProduction
-  ? 'https://game-wingman-splash-page.vercel.app'  // Update this with your production URL
+  ? 'https://d5yvnnwq4r8lp.cloudfront.net'  // Update this with your production URL
   : 'http://localhost:3000';
 
 router.post('/signup', async (req, res) => {
