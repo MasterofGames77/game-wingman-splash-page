@@ -19,8 +19,7 @@ const corsOptions = {
   origin: (origin: string | undefined, callback: Function) => {
     const whitelist = [
       'http://localhost:3000',
-      'https://d5yvnnwq4r8lp.cloudfront.net',
-      // 'https://game-wingman-splash-page.vercel.app'
+      'https://game-wingman-splash-page.vercel.app'
     ];
     if (!origin || whitelist.indexOf(origin) !== -1) {
       callback(null, true);

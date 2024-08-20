@@ -13,7 +13,7 @@ const router = (0, express_1.Router)();
 const isProduction = process.env.NODE_ENV === 'production';
 // Base URL for password reset emails
 const BASE_URL = isProduction
-    ? 'https://d5yvnnwq4r8lp.cloudfront.net' // Update this with your production URL
+    ? 'https://game-wingman-splash-page.vercel.app' // Update this with your production URL
     : 'http://localhost:3000';
 router.post('/signup', async (req, res) => {
     console.log('Signup request received:', req.body);

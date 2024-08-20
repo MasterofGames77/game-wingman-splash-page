@@ -17,10 +17,13 @@ const MainPage: React.FC = () => {
     const fetchPosition = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(
+        const API_BASE_URL =
           process.env.NODE_ENV === "production"
-            ? "https://d5yvnnwq4r8lp.cloudfront.net/api/getWaitlistPosition"
-            : "http://localhost:5000/api/getWaitlistPosition",
+            ? process.env.REACT_APP_PROD_API_URL // Use the environment variable
+            : "http://localhost:5000";
+
+        const response = await axios.get(
+          `${API_BASE_URL}/api/getWaitlistPosition`,
           {
             headers: {
               Authorization: `Bearer ${token}`, // Include the token in the Authorization header
@@ -50,10 +53,13 @@ const MainPage: React.FC = () => {
   const handleLogout = async () => {
     setLoading(true);
     try {
-      await axios.post(
+      const API_BASE_URL =
         process.env.NODE_ENV === "production"
-          ? "https://d5yvnnwq4r8lp.cloudfront.net/api/auth/logout"
-          : "http://localhost:5000/api/auth/logout",
+          ? process.env.REACT_APP_PROD_API_URL // Use the environment variable
+          : "http://localhost:5000";
+
+      await axios.post(
+        `${API_BASE_URL}/api/auth/logout`,
         {},
         { withCredentials: true }
       );
