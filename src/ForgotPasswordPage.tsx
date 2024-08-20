@@ -1,22 +1,27 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import logo from "./assets/video-game-wingman-logo.png"; // Adjust the path as necessary
+import logo from "./assets/video-game-wingman-logo.png";
 import "./index.css";
 
 const ForgotPasswordPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false); // State for loading spinner
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true); // Show loading spinner
+    setLoading(true);
 
     try {
+      const API_BASE_URL =
+        process.env.NODE_ENV === "production"
+          ? "https://game-wingman-splash-page.vercel.app/forgot-password" // Production backend URL
+          : "http://localhost:5000/api/auth/forgot-password"; // Local development URL
+
       const response = await axios.post(
-        "http://localhost:5000/api/auth/forgot-password",
+        `${API_BASE_URL}/api/auth/forgot-password`,
         { email }
       );
 
@@ -30,7 +35,7 @@ const ForgotPasswordPage: React.FC = () => {
       console.error("Error sending password reset email:", error);
       setMessage("An error occurred. Please try again.");
     } finally {
-      setLoading(false); // Hide loading spinner
+      setLoading(false);
     }
   };
 

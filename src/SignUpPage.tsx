@@ -18,10 +18,15 @@ const SignUpPage: React.FC = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/signup",
-        { email, password }
-      );
+      const API_BASE_URL =
+        process.env.NODE_ENV === "production"
+          ? "https://game-wingman-splash-page.vercel.app/" // Production backend URL
+          : "http://localhost:5000"; // Local development URL
+
+      const response = await axios.post(`${API_BASE_URL}/api/auth/signup`, {
+        email,
+        password,
+      });
 
       if (response.status === 201) {
         setMessage("Account created successfully!");

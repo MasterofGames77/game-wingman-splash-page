@@ -18,7 +18,18 @@ const app = (0, express_1.default)();
 const port = process.env.PORT || 5000;
 // CORS configuration
 const corsOptions = {
-    origin: 'http://localhost:3000', // Specify the frontend URL
+    origin: (origin, callback) => {
+        const whitelist = [
+            'http://localhost:3000',
+            'https://game-wingman-splash-page.vercel.app'
+        ];
+        if (!origin || whitelist.indexOf(origin) !== -1) {
+            callback(null, true);
+        }
+        else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true, // Allow credentials (cookies, authorization headers, etc.)
 };
 // Middleware

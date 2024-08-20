@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser';
 import authRoutes from './routes/auth';
 import waitlistRoutes from './routes/waitlist';
 import getWaitlistPositionRoute from './routes/getWaitlistPosition';
-import authMiddleware  from './middleware/authMiddleware';
+import authMiddleware from './middleware/authMiddleware';
 import approveUserRoute from './routes/approveUser';
 
 dotenv.config();
@@ -16,7 +16,17 @@ const port = process.env.PORT || 5000;
 
 // CORS configuration
 const corsOptions = {
-  origin: 'http://localhost:3000', // Specify the frontend URL
+  origin: (origin: string | undefined, callback: Function) => {
+    const whitelist = [
+      'http://localhost:3000',
+      'https://game-wingman-splash-page.vercel.app'
+    ];
+    if (!origin || whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true, // Allow credentials (cookies, authorization headers, etc.)
 };
 

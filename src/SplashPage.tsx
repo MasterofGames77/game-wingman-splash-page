@@ -25,9 +25,9 @@ const SplashPage: React.FC = () => {
 
       <h2>What Video Game Wingman Does:</h2>
       <ul className="features-list">
-        <li>Provides personalized recommendations and game information.</li>
+        <li>Delivers tailored game recommendations and detailed insights.</li>
         <li>
-          Provides general tips and tricks, as well as guides for progression.
+          Offers tips, tricks, and progression guides to enhance your gameplay.
         </li>
       </ul>
       <button onClick={handleJoinWaitlist} className="join-waitlist-button">

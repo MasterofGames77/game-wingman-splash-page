@@ -9,6 +9,11 @@ const router = Router();
 
 const isProduction = process.env.NODE_ENV === 'production';
 
+// Base URL for password reset emails
+const BASE_URL = isProduction
+  ? 'https://game-wingman-splash-page.vercel.app'  // Update this with your production URL
+  : 'http://localhost:3000';
+
 router.post('/signup', async (req, res) => {
   console.log('Signup request received:', req.body);
   
@@ -133,7 +138,7 @@ router.post('/forgot-password', async (req, res) => {
     await user.save();
     console.log('User updated with reset token');
 
-    const resetUrl = `http://localhost:3000/reset-password?token=${token}`;
+    const resetUrl = `${BASE_URL}/reset-password?token=${token}`;  // Updated URL generation
     const message = `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n
                      Please click on the following link, or paste this into your browser to complete the process:\n\n
                      ${resetUrl}\n\n
