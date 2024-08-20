@@ -7,18 +7,21 @@ const express_1 = __importDefault(require("express"));
 const User_1 = __importDefault(require("../models/User"));
 const router = express_1.default.Router();
 router.get('/getWaitlistPosition', async (req, res) => {
-    // Access the user ID from the request, using 'any' to bypass TypeScript errors
+    // Access the user ID from the request
     const userId = req.user?._id;
     if (!userId) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
     try {
         const user = await User_1.default.findById(userId);
-        if (user) {
-            res.json({ position: user.position, isApproved: user.isApproved });
+        if (!user) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+        if (user.isApproved) {
+            return res.json({ isApproved: true }); // Return that the user is approved
         }
         else {
-            res.status(404).json({ error: 'User not found' });
+            return res.json({ position: user.position, isApproved: false });
         }
     }
     catch (error) {

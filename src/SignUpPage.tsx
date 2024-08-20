@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import logo from "./assets/video-game-wingman-logo.png"; // Adjust the path as necessary
+import { useAuth } from "./authContext";
+import logo from "./assets/video-game-wingman-logo.png";
 import "./index.css";
 
 const SignUpPage: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false); // State for loading spinner
+  const { setAuth } = useAuth();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true); // Show loading spinner
+    setLoading(true);
 
     try {
       const response = await axios.post(
@@ -22,16 +24,19 @@ const SignUpPage: React.FC = () => {
       );
 
       if (response.status === 201) {
-        setMessage("Account created! Redirecting to sign-in page...");
-        setTimeout(() => navigate("/sign-in"), 3000);
+        setMessage("Account created successfully!");
+        setAuth(response.data.accessToken); // Store the token in context
+        navigate("/main"); // Redirect directly to main page
       } else {
-        setMessage("An error occurred. Please try again.");
+        setMessage(
+          response.data.message || "An error occurred. Please try again."
+        );
       }
     } catch (error) {
       console.error("Sign-up error:", error);
       setMessage("An error occurred during sign-up. Please try again.");
     } finally {
-      setLoading(false); // Hide loading spinner
+      setLoading(false);
     }
   };
 
@@ -54,14 +59,11 @@ const SignUpPage: React.FC = () => {
           placeholder="Password"
           required
         />
-        <button type="submit">Sign Up</button>
+        <button type="submit" disabled={loading}>
+          {loading ? <div className="loading-spinner"></div> : "Sign Up"}
+        </button>
       </form>
       {message && <p>{message}</p>}
-      {loading && (
-        <div className="spinner-wrapper">
-          <div className="loading-spinner"></div>
-        </div>
-      )}
     </div>
   );
 };

@@ -7,11 +7,15 @@ exports.authMiddleware = void 0;
 const jwt_1 = require("../utils/jwt"); // Import the verifyToken function
 const User_1 = __importDefault(require("../models/User"));
 const authMiddleware = async (req, res, next) => {
-    const token = req.cookies.token;
+    let token = req.headers.authorization;
     // Log the incoming token
     console.log('Received Token:', token);
     if (!token) {
         return res.status(401).json({ message: 'Unauthorized' });
+    }
+    // Strip 'Bearer ' prefix if it exists
+    if (token.startsWith('Bearer ')) {
+        token = token.slice(7, token.length).trim();
     }
     try {
         const decoded = (0, jwt_1.verifyToken)(token); // Use the imported verifyToken function

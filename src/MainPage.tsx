@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import logo from "./assets/video-game-wingman-logo.png"; // Adjust the path as necessary
-import "./index.css"; // Ensure your CSS includes the styles below
+import logo from "./assets/video-game-wingman-logo.png";
+import "./index.css";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./authContext"; // Import useAuth to get the token
 
 const MainPage: React.FC = () => {
   const [position, setPosition] = useState<number | null>(null);
@@ -10,6 +11,7 @@ const MainPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [isApproved, setIsApproved] = useState(false);
   const navigate = useNavigate();
+  const { token } = useAuth(); // Get the token from AuthContext
 
   useEffect(() => {
     const fetchPosition = async () => {
@@ -18,11 +20,18 @@ const MainPage: React.FC = () => {
         const response = await axios.get(
           "http://localhost:5000/api/getWaitlistPosition",
           {
+            headers: {
+              Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+            },
             withCredentials: true, // Ensure cookies are sent
           }
         );
-        setPosition(response.data.position);
-        setIsApproved(response.data.isApproved);
+
+        if (response.data.isApproved) {
+          setIsApproved(true);
+        } else {
+          setPosition(response.data.position);
+        }
       } catch (error) {
         console.error("Error fetching waitlist position:", error);
         setMessage(
@@ -34,7 +43,7 @@ const MainPage: React.FC = () => {
     };
 
     fetchPosition();
-  }, []);
+  }, [token]);
 
   const handleLogout = async () => {
     setLoading(true);
@@ -45,7 +54,6 @@ const MainPage: React.FC = () => {
         { withCredentials: true }
       );
       setMessage("You have been logged out successfully.");
-      // Redirect to the splash page
       setTimeout(() => navigate("/"), 2000);
     } catch (error) {
       console.error("Error logging out:", error);
@@ -59,17 +67,20 @@ const MainPage: React.FC = () => {
     <div className="main-container">
       <img src={logo} alt="Video Game Wingman Logo" className="auth-logo" />
       <h1>Welcome to Video Game Wingman</h1>
-      {position !== null ? (
-        <>
-          <p>Your waitlist position is: {position}</p>
-          {isApproved && (
-            <p>
-              You have been approved! Click{" "}
-              <a href="https://game-ai-assistant.vercel.app/">here</a> to access
-              Video Game Wingman.
-            </p>
-          )}
-        </>
+      {isApproved ? (
+        <p>
+          You have been approved! Click{" "}
+          <a
+            href="https://game-ai-assistant.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            here
+          </a>{" "}
+          to access Video Game Wingman.
+        </p>
+      ) : position !== null ? (
+        <p>Your waitlist position is: {position}</p>
       ) : (
         <p>{message}</p>
       )}

@@ -3,13 +3,18 @@ import { verifyToken } from '../utils/jwt'; // Import the verifyToken function
 import User from '../models/User';
 
 export const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
-  const token = req.cookies.token;
+  let token = req.headers.authorization;
 
   // Log the incoming token
   console.log('Received Token:', token);
 
   if (!token) {
     return res.status(401).json({ message: 'Unauthorized' });
+  }
+
+  // Strip 'Bearer ' prefix if it exists
+  if (token.startsWith('Bearer ')) {
+    token = token.slice(7, token.length).trim();
   }
 
   try {

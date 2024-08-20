@@ -4,7 +4,7 @@ import User from '../models/User';
 const router = express.Router();
 
 router.get('/getWaitlistPosition', async (req: Request, res: Response) => {
-  // Access the user ID from the request, using 'any' to bypass TypeScript errors
+  // Access the user ID from the request
   const userId = (req as any).user?._id;
 
   if (!userId) {
@@ -13,10 +13,15 @@ router.get('/getWaitlistPosition', async (req: Request, res: Response) => {
 
   try {
     const user = await User.findById(userId);
-    if (user) {
-      res.json({ position: user.position, isApproved: user.isApproved });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    if (user.isApproved) {
+      return res.json({ isApproved: true }); // Return that the user is approved
     } else {
-      res.status(404).json({ error: 'User not found' });
+      return res.json({ position: user.position, isApproved: false });
     }
   } catch (error) {
     console.error('Error retrieving waitlist position:', error);
