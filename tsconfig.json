@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "esnext",
     "lib": [
       "dom",
       "dom.iterable",
@@ -13,14 +13,14 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
+    "module": "esnext", // This is fine for React using ES Modules
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "noEmit": true, // No need to emit files, since React handles this through Webpack/Babel
+    "jsx": "react-jsx" // Modern JSX transform for React
   },
   "include": [
-    "src"
+    "src" // Ensures TypeScript only includes files in the src folder (your React app)
   ]
 }
