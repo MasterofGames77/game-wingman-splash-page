@@ -1,34 +1,26 @@
 {
-    "compilerOptions": {
-        "target": "esnext", // Supports latest JavaScript features
-        "lib": [
-            "dom", // Supports browser-related features
-            "dom.iterable", // Enables support for iterable DOM structures
-            "esnext" // Enables latest ECMAScript features
-        ],
-        "module": "esnext", // Use ES Modules, compatible with both frontend and backend
-        "moduleResolution": "node", // Use Node.js-style resolution
-        "allowJs": true, // Allow JavaScript files in your project
-        "skipLibCheck": true, // Skip type checking of declaration files (improves performance)
-        "esModuleInterop": true, // Ensures compatibility with CommonJS and ES Modules
-        "allowSyntheticDefaultImports": true, // Allows default imports from modules without default export
-        "strict": true, // Enables all strict type-checking options
-        "forceConsistentCasingInFileNames": true, // Disallows inconsistently cased imports
-        "noFallthroughCasesInSwitch": true, // Prevents fallthrough cases in switch statements
-        "resolveJsonModule": true, // Allows importing JSON files as modules
-        "isolatedModules": true, // Ensures each file is treated as a separate module (important for React)
-        "noEmit": true, // Disables emitting of compiled files (useful for React where Webpack handles it)
-        "jsx": "react-jsx" // Modern JSX transform for React (if you're using React 17+)
-    },
-    "include": [
-        "src", // Include all TypeScript files in the src directory (React app)
-        "api/**/*.ts", // Include all TypeScript files under the api directory (backend)
-        "api/models/*.ts", // Specifically include models
-        "api/utils/*.ts", // Specifically include utils
-        "src/custom.d.ts"
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
     ],
-    "exclude": [
-        "node_modules", // Exclude node_modules to avoid unnecessary compilation
-        "dist" // Exclude the output directory (if you have one)
-    ]
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx"
+  },
+  "include": [
+    "src"
+  ]
 }

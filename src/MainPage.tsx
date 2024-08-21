@@ -3,7 +3,7 @@ import axios from "axios";
 import logo from "./assets/video-game-wingman-logo.png";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "./context/authContext";
+import { useAuth } from "./authContext"; // Import useAuth to get the token
 
 const MainPage: React.FC = () => {
   const [position, setPosition] = useState<number | null>(null);
@@ -13,17 +13,12 @@ const MainPage: React.FC = () => {
   const navigate = useNavigate();
   const { token } = useAuth(); // Get the token from AuthContext
 
-  const API_BASE_URL =
-    process.env.NODE_ENV === "production"
-      ? process.env.REACT_APP_PROD_API_URL // Use Vercel's environment variable for production
-      : process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
-
   useEffect(() => {
     const fetchPosition = async () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `${API_BASE_URL}/api/getWaitlistPosition`,
+          "http://localhost:5000/api/getWaitlistPosition",
           {
             headers: {
               Authorization: `Bearer ${token}`, // Include the token in the Authorization header
@@ -54,7 +49,7 @@ const MainPage: React.FC = () => {
     setLoading(true);
     try {
       await axios.post(
-        `${API_BASE_URL}/api/auth/logout`,
+        "http://localhost:5000/api/auth/logout",
         {},
         { withCredentials: true }
       );
@@ -89,9 +84,7 @@ const MainPage: React.FC = () => {
       ) : (
         <p>{message}</p>
       )}
-      <button onClick={handleLogout} disabled={loading}>
-        {loading ? <div className="loading-spinner"></div> : "Log Out"}
-      </button>
+      <button onClick={handleLogout}>Log Out</button>
       {loading && (
         <div className="spinner-wrapper">
           <div className="loading-spinner"></div>

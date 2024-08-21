@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useAuth } from "./context/authContext";
+import { useAuth } from "./authContext";
 import logo from "./assets/video-game-wingman-logo.png";
 import "./index.css";
 
@@ -13,16 +13,16 @@ const SignUpPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const API_BASE_URL =
-    process.env.NODE_ENV === "production"
-      ? process.env.REACT_APP_PROD_API_URL // Use Vercel's environment variable for production
-      : process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
-
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
+      const API_BASE_URL =
+        process.env.NODE_ENV === "production"
+          ? "https://game-wingman-splash-page.vercel.app/" // Production backend URL
+          : "http://localhost:5000"; // Local development URL
+
       const response = await axios.post(`${API_BASE_URL}/api/auth/signup`, {
         email,
         password,
