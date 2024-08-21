@@ -1,4 +1,10 @@
 {
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "axios": "^1.7.4",
     "bcryptjs": "^2.4.3",
@@ -26,7 +32,10 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@babel/plugin-transform-private-property-in-object": "^7.24.7",
     "@types/bcryptjs": "^2.4.6",
+    "@types/cookie-parser": "^1.4.7",
     "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^22.5.0",
     "@types/nodemailer": "^6.4.15",
