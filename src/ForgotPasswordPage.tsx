@@ -10,17 +10,20 @@ const ForgotPasswordPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  const API_BASE_URL =
+    process.env.NODE_ENV === "production"
+      ? process.env.REACT_APP_PROD_API_URL // Use Vercel's environment variable for production
+      : process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const API_BASE_URL =
-        process.env.NODE_ENV === "production"
-          ? process.env.REACT_APP_PROD_API_URL + "/api/auth/forgot-password" // Production backend URL from .env
-          : "http://localhost:5000/api/auth/forgot-password"; // Local development URL
-
-      const response = await axios.post(`${API_BASE_URL}`, { email });
+      const response = await axios.post(
+        `${API_BASE_URL}/api/auth/forgot-password`,
+        { email }
+      );
 
       if (response.status === 200) {
         setMessage("Password reset email sent! Redirecting to sign-in page...");

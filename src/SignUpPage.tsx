@@ -13,14 +13,16 @@ const SignUpPage: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  const API_BASE_URL =
+    process.env.NODE_ENV === "production"
+      ? process.env.REACT_APP_PROD_API_URL // Use Vercel's environment variable for production
+      : process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const API_BASE_URL =
-        process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
-
       const response = await axios.post(`${API_BASE_URL}/api/auth/signup`, {
         email,
         password,

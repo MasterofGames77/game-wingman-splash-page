@@ -13,13 +13,15 @@ const MainPage: React.FC = () => {
   const navigate = useNavigate();
   const { token } = useAuth(); // Get the token from AuthContext
 
+  const API_BASE_URL =
+    process.env.NODE_ENV === "production"
+      ? process.env.REACT_APP_PROD_API_URL // Use Vercel's environment variable for production
+      : process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+
   useEffect(() => {
     const fetchPosition = async () => {
       setLoading(true);
       try {
-        const API_BASE_URL =
-          process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
-
         const response = await axios.get(
           `${API_BASE_URL}/api/getWaitlistPosition`,
           {
@@ -51,9 +53,6 @@ const MainPage: React.FC = () => {
   const handleLogout = async () => {
     setLoading(true);
     try {
-      const API_BASE_URL =
-        process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
-
       await axios.post(
         `${API_BASE_URL}/api/auth/logout`,
         {},

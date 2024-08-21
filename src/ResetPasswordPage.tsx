@@ -11,15 +11,15 @@ const ResetPasswordPage: React.FC = () => {
 
   const token = searchParams.get("token");
 
+  const API_BASE_URL =
+    process.env.NODE_ENV === "production"
+      ? process.env.REACT_APP_PROD_API_URL // Use Vercel's environment variable for production
+      : process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+
   const handleResetPassword = async () => {
     setLoading(true);
     try {
-      const API_BASE_URL =
-        process.env.NODE_ENV === "production"
-          ? process.env.REACT_APP_PROD_API_URL + "/api/auth/reset-password" // Production backend URL from .env
-          : "http://localhost:5000/api/auth/reset-password"; // Local development URL
-
-      await axios.post(`${API_BASE_URL}`, {
+      await axios.post(`${API_BASE_URL}/api/auth/reset-password`, {
         token,
         newPassword,
       });

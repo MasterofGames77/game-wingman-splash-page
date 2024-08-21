@@ -6,8 +6,8 @@ import { User, connectToDatabase } from '../models/User';
 import { sendEmail } from '../utils/sendEmail';
 
 const BASE_URL = process.env.NODE_ENV === 'production'
-  ? 'https://game-wingman-splash-page.vercel.app'
-  : 'http://localhost:3000';
+  ? process.env.REACT_APP_PROD_API_URL || 'https://game-wingman-splash-page.vercel.app'
+  : process.env.REACT_APP_API_BASE_URL || 'http://localhost:3000';
 
 interface ForgotPasswordRequestBody {
   email: string;
