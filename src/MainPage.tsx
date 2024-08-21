@@ -18,9 +18,7 @@ const MainPage: React.FC = () => {
       setLoading(true);
       try {
         const API_BASE_URL =
-          process.env.NODE_ENV === "production"
-            ? process.env.REACT_APP_PROD_API_URL // Use the environment variable for production
-            : "http://localhost:5000"; // Local development URL
+          process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
 
         const response = await axios.get(
           `${API_BASE_URL}/api/getWaitlistPosition`,
@@ -54,9 +52,7 @@ const MainPage: React.FC = () => {
     setLoading(true);
     try {
       const API_BASE_URL =
-        process.env.NODE_ENV === "production"
-          ? process.env.REACT_APP_PROD_API_URL // Use the environment variable for production
-          : "http://localhost:5000"; // Local development URL
+        process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
 
       await axios.post(
         `${API_BASE_URL}/api/auth/logout`,

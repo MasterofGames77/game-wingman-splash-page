@@ -17,7 +17,7 @@ const ForgotPasswordPage: React.FC = () => {
     try {
       const API_BASE_URL =
         process.env.NODE_ENV === "production"
-          ? "https://game-wingman-splash-page.vercel.app/api/auth/forgot-password" // Production backend URL
+          ? process.env.REACT_APP_PROD_API_URL + "/api/auth/forgot-password" // Production backend URL from .env
           : "http://localhost:5000/api/auth/forgot-password"; // Local development URL
 
       const response = await axios.post(`${API_BASE_URL}`, { email });
