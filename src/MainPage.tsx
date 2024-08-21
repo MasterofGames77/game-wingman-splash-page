@@ -13,12 +13,18 @@ const MainPage: React.FC = () => {
   const navigate = useNavigate();
   const { token } = useAuth(); // Get the token from AuthContext
 
+  // Determine the API base URL depending on the environment
+  const API_BASE_URL =
+    process.env.NODE_ENV === "production"
+      ? "https://video-game-wingman-splash-page-239457d19a04.herokuapp.com/" // Replace with your Heroku production URL
+      : "http://localhost:5000"; // Local development URL
+
   useEffect(() => {
     const fetchPosition = async () => {
       setLoading(true);
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/getWaitlistPosition",
+          `${API_BASE_URL}/api/getWaitlistPosition`,
           {
             headers: {
               Authorization: `Bearer ${token}`, // Include the token in the Authorization header
@@ -43,13 +49,13 @@ const MainPage: React.FC = () => {
     };
 
     fetchPosition();
-  }, [token]);
+  }, [token, API_BASE_URL]);
 
   const handleLogout = async () => {
     setLoading(true);
     try {
       await axios.post(
-        "http://localhost:5000/api/auth/logout",
+        `${API_BASE_URL}/api/auth/logout`,
         {},
         { withCredentials: true }
       );

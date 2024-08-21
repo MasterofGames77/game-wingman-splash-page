@@ -20,7 +20,7 @@ const SignUpPage: React.FC = () => {
     try {
       const API_BASE_URL =
         process.env.NODE_ENV === "production"
-          ? "https://game-wingman-splash-page.vercel.app/" // Production backend URL
+          ? "https://video-game-wingman-splash-page-239457d19a04.herokuapp.com/" // Production backend URL
           : "http://localhost:5000"; // Local development URL
 
       const response = await axios.post(`${API_BASE_URL}/api/auth/signup`, {

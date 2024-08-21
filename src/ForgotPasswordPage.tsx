@@ -16,7 +16,7 @@ const MainPage: React.FC = () => {
   // Define the API base URL based on the environment
   const API_BASE_URL =
     process.env.NODE_ENV === "production"
-      ? "https://game-wingman-splash-page.vercel.app"
+      ? "https://video-game-wingman-splash-page-239457d19a04.herokuapp.com/"
       : "http://localhost:5000";
 
   useEffect(() => {
