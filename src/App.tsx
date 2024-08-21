@@ -6,7 +6,7 @@ import SignInPage from "./SignInPage";
 import MainPage from "./MainPage";
 import ResetPasswordPage from "./ResetPasswordPage";
 import ForgotPasswordPage from "./ForgotPasswordPage";
-import { AuthProvider } from "./authContext";
+import { AuthProvider } from "./context/authContext"; // Adjusted path for authContext
 
 function App() {
   return (

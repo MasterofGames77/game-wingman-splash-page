@@ -1,18 +1,11 @@
+/* App.css */
+
+/* Global application styles */
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
+/* If you don't need these, you can remove them */
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -24,10 +17,12 @@
   color: white;
 }
 
+/* Link styles */
 .App-link {
   color: #61dafb;
 }
 
+/* Keyframe for spinning animation (can be removed if not used) */
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

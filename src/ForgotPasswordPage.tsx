@@ -17,13 +17,10 @@ const ForgotPasswordPage: React.FC = () => {
     try {
       const API_BASE_URL =
         process.env.NODE_ENV === "production"
-          ? "https://game-wingman-splash-page.vercel.app/" // Production backend URL
+          ? "https://game-wingman-splash-page.vercel.app/api/auth/forgot-password" // Production backend URL
           : "http://localhost:5000/api/auth/forgot-password"; // Local development URL
 
-      const response = await axios.post(
-        `${API_BASE_URL}/api/auth/forgot-password`,
-        { email }
-      );
+      const response = await axios.post(`${API_BASE_URL}`, { email });
 
       if (response.status === 200) {
         setMessage("Password reset email sent! Redirecting to sign-in page...");
@@ -51,7 +48,9 @@ const ForgotPasswordPage: React.FC = () => {
           placeholder="Enter your email"
           required
         />
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={loading}>
+          {loading ? <div className="loading-spinner"></div> : "Submit"}
+        </button>
       </form>
       {message && <p>{message}</p>}
       {loading && (

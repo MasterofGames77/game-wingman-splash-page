@@ -1,12 +1,15 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 
+// Define the shape of the authentication context
 type AuthContextType = {
   token: string | null;
   setAuth: (token: string | null) => void;
 };
 
+// Create the context with a default value of undefined
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// AuthProvider component that wraps your app and provides the auth context
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
 
@@ -21,6 +24,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   );
 };
 
+// Custom hook to use the AuthContext
 export const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
   if (context === undefined) {

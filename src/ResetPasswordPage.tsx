@@ -16,8 +16,8 @@ const ResetPasswordPage: React.FC = () => {
     try {
       const API_BASE_URL =
         process.env.NODE_ENV === "production"
-          ? "https://game-wingman-splash-page.vercel.app/" // Production backend URL
-          : "http://localhost:5000/api/auth/reset-password"; // Local development URL
+          ? "https://game-wingman-splash-page.vercel.app" // Production backend URL
+          : "http://localhost:5000"; // Local development URL
 
       await axios.post(`${API_BASE_URL}/api/auth/reset-password`, {
         token,

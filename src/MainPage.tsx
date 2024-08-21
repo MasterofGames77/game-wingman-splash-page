@@ -3,7 +3,7 @@ import axios from "axios";
 import logo from "./assets/video-game-wingman-logo.png";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "./authContext"; // Import useAuth to get the token
+import { useAuth } from "./context/authContext";
 
 const MainPage: React.FC = () => {
   const [position, setPosition] = useState<number | null>(null);
@@ -19,8 +19,8 @@ const MainPage: React.FC = () => {
       try {
         const API_BASE_URL =
           process.env.NODE_ENV === "production"
-            ? process.env.REACT_APP_PROD_API_URL // Use the environment variable
-            : "http://localhost:5000";
+            ? process.env.REACT_APP_PROD_API_URL // Use the environment variable for production
+            : "http://localhost:5000"; // Local development URL
 
         const response = await axios.get(
           `${API_BASE_URL}/api/getWaitlistPosition`,
@@ -55,8 +55,8 @@ const MainPage: React.FC = () => {
     try {
       const API_BASE_URL =
         process.env.NODE_ENV === "production"
-          ? process.env.REACT_APP_PROD_API_URL // Use the environment variable
-          : "http://localhost:5000";
+          ? process.env.REACT_APP_PROD_API_URL // Use the environment variable for production
+          : "http://localhost:5000"; // Local development URL
 
       await axios.post(
         `${API_BASE_URL}/api/auth/logout`,
@@ -94,7 +94,9 @@ const MainPage: React.FC = () => {
       ) : (
         <p>{message}</p>
       )}
-      <button onClick={handleLogout}>Log Out</button>
+      <button onClick={handleLogout} disabled={loading}>
+        {loading ? <div className="loading-spinner"></div> : "Log Out"}
+      </button>
       {loading && (
         <div className="spinner-wrapper">
           <div className="loading-spinner"></div>
