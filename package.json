@@ -2,7 +2,7 @@
   "name": "wingman-splash-page",
   "version": "0.1.0",
   "engines": {
-    "node": "20.x"
+    "node": "18.x"
   },
   "private": true,
   "dependencies": {
